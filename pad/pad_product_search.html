@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>架空製品 詳細検索 | PAD練習ページ</title>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: "Segoe UI", "Yu Gothic UI", sans-serif;
+      background: #f3f6f9;
+      color: #243140;
+      font-size: 14px;
+    }
+    header {
+      height: 62px;
+      background: #244766;
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 28px;
+    }
+    header h1 {
+      margin: 0;
+      font-size: 22px;
+    }
+    header a {
+      color: white;
+      margin-left: 18px;
+    }
+    .page {
+      max-width: 1180px;
+      margin: 18px auto;
+      padding: 0 18px;
+    }
+    .panel {
+      background: white;
+      border: 1px solid #cfd9e2;
+      border-radius: 8px;
+      padding: 18px;
+      margin-bottom: 16px;
+      box-shadow: 0 2px 7px rgba(30, 50, 70, 0.06);
+    }
+    .panel h2 {
+      margin: 0 0 14px;
+      font-size: 17px;
+      color: #244766;
+      border-left: 5px solid #4d88b5;
+      padding-left: 10px;
+    }
+    .search-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 14px 18px;
+    }
+    .field label, .group-title {
+      display: block;
+      font-weight: 600;
+      margin-bottom: 6px;
+    }
+    input[type="text"], input[type="number"], select {
+      width: 100%;
+      height: 36px;
+      padding: 6px 9px;
+      border: 1px solid #aebbc7;
+      border-radius: 4px;
+      background: white;
+    }
+    .inline-options {
+      min-height: 36px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+    .inline-options label {
+      font-weight: normal;
+      margin: 0;
+    }
+    .buttons {
+      display: flex;
+      gap: 10px;
+      justify-content: flex-end;
+      margin-top: 16px;
+    }
+    button {
+      min-width: 105px;
+      height: 38px;
+      border: 0;
+      border-radius: 5px;
+      cursor: pointer;
+      font-weight: 600;
+    }
+    .primary {
+      background: #246b9f;
+      color: white;
+    }
+    .secondary {
+      background: #dbe3e9;
+      color: #243140;
+    }
+    .status {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 9px;
+    }
+    .count {
+      font-weight: 700;
+      color: #17623b;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+    }
+    th {
+      background: #e7eef4;
+      text-align: left;
+      border: 1px solid #bcc9d4;
+      padding: 9px;
+      white-space: nowrap;
+    }
+    td {
+      border: 1px solid #cbd5dd;
+      padding: 8px;
+      vertical-align: middle;
+    }
+    tbody tr:nth-child(even) {
+      background: #f8fafb;
+    }
+    .product-img {
+      width: 62px;
+      height: 48px;
+      object-fit: cover;
+      border: 1px solid #bdc8d1;
+      border-radius: 4px;
+      background: #edf2f5;
+    }
+    .detail-link {
+      color: #12669c;
+      font-weight: 600;
+    }
+    .badge {
+      display: inline-block;
+      padding: 3px 8px;
+      border-radius: 12px;
+      background: #e4f2e9;
+      color: #17623b;
+      font-size: 12px;
+    }
+    .out {
+      background: #f7e5e5;
+      color: #8a2929;
+    }
+    footer {
+      text-align: center;
+      color: #667787;
+      padding: 6px 0 22px;
+      font-size: 12px;
+    }
+    .notice {
+      background: #fff7d8;
+      border: 1px solid #e5d38a;
+      padding: 9px 12px;
+      border-radius: 5px;
+      margin-bottom: 14px;
+    }
+    @media (max-width: 850px) {
+      .search-grid { grid-template-columns: 1fr 1fr; }
+    }
+  </style>
+</head>
+<body>
+<header>
+  <h1>NovaWorks 製品詳細検索</h1>
+  <nav>
+    <a href="#searchPanel" id="nav-search">製品検索</a>
+    <a href="help.html" id="nav-help">ヘルプ</a>
+    <a href="login.html" id="nav-logout">ログアウト</a>
+  </nav>
+</header>
+
+<main class="page">
+  <div class="notice">
+    このページは Power Automate for desktop のWeb操作練習用に作られた架空サイトです。
+  </div>
+
+  <section class="panel" id="searchPanel">
+    <h2>検索条件</h2>
+
+    <div class="search-grid">
+      <div class="field">
+        <label for="productName">製品名</label>
+        <input type="text" id="productName" name="productName" placeholder="例：Nova">
+      </div>
+
+      <div class="field">
+        <label for="category">カテゴリ</label>
+        <select id="category" name="category">
+          <option value="">すべて</option>
+          <option value="PC">パソコン</option>
+          <option value="Tablet">タブレット</option>
+          <option value="Accessory">周辺機器</option>
+          <option value="Network">ネットワーク機器</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <label for="maker">メーカー</label>
+        <select id="maker" name="maker">
+          <option value="">すべて</option>
+          <option value="NovaWorks">NovaWorks</option>
+          <option value="BluePeak">BluePeak</option>
+          <option value="Orbitron">Orbitron</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <label for="minPrice">最低価格</label>
+        <input type="number" id="minPrice" name="minPrice" min="0" placeholder="0">
+      </div>
+
+      <div class="field">
+        <label for="maxPrice">最高価格</label>
+        <input type="number" id="maxPrice" name="maxPrice" min="0" placeholder="200000">
+      </div>
+
+      <div class="field">
+        <span class="group-title">発売時期</span>
+        <div class="inline-options" id="releasePeriod">
+          <label><input type="radio" name="release" value="all" checked> すべて</label>
+          <label><input type="radio" name="release" value="new"> 1年以内</label>
+          <label><input type="radio" name="release" value="old"> 1年以上前</label>
+        </div>
+      </div>
+
+      <div class="field">
+        <span class="group-title">検索オプション</span>
+        <div class="inline-options">
+          <label><input type="checkbox" id="inStockOnly" name="inStockOnly"> 在庫ありのみ</label>
+          <label><input type="checkbox" id="saleOnly" name="saleOnly"> セール品のみ</label>
+        </div>
+      </div>
+
+      <div class="field">
+        <span class="group-title">表示順</span>
+        <div class="inline-options">
+          <label><input type="radio" name="sort" value="code" checked> 製品コード順</label>
+          <label><input type="radio" name="sort" value="price"> 価格順</label>
+        </div>
+      </div>
+    </div>
+
+    <div class="buttons">
+      <button type="button" class="secondary" id="clearButton">条件クリア</button>
+      <button type="button" class="primary" id="searchButton">検索</button>
+    </div>
+  </section>
+
+  <section class="panel">
+    <h2>検索結果</h2>
+    <div class="status">
+      <div id="searchMessage">条件を指定して「検索」を押してください。</div>
+      <div class="count" id="resultCount">6件</div>
+    </div>
+
+    <table id="resultTable">
+      <thead>
+        <tr>
+          <th>画像</th>
+          <th>製品コード</th>
+          <th>製品名</th>
+          <th>カテゴリ</th>
+          <th>メーカー</th>
+          <th>価格</th>
+          <th>在庫</th>
+          <th>詳細</th>
+        </tr>
+      </thead>
+      <tbody id="resultBody"></tbody>
+    </table>
+  </section>
+</main>
+
+<footer>
+  NovaWorks Demo Site / PAD Training Page
+</footer>
+
+<script>
+const products = [
+  { code:"NW-1001", name:"NovaBook Air 13", category:"PC", categoryJa:"パソコン", maker:"NovaWorks", price:128000, stock:true, sale:false, release:"new", image:"https://placehold.co/124x96?text=PC+13", detail:"product-detail.html?id=NW-1001" },
+  { code:"NW-1002", name:"NovaBook Pro 15", category:"PC", categoryJa:"パソコン", maker:"NovaWorks", price:178000, stock:true, sale:true, release:"new", image:"https://placehold.co/124x96?text=PC+15", detail:"product-detail.html?id=NW-1002" },
+  { code:"BP-2030", name:"BlueTab Mini", category:"Tablet", categoryJa:"タブレット", maker:"BluePeak", price:56800, stock:false, sale:false, release:"old", image:"https://placehold.co/124x96?text=Tablet", detail:"product-detail.html?id=BP-2030" },
+  { code:"OR-3100", name:"Orbit Mouse X", category:"Accessory", categoryJa:"周辺機器", maker:"Orbitron", price:6800, stock:true, sale:true, release:"old", image:"https://placehold.co/124x96?text=Mouse", detail:"product-detail.html?id=OR-3100" },
+  { code:"NW-4401", name:"Nova Wi-Fi Hub", category:"Network", categoryJa:"ネットワーク機器", maker:"NovaWorks", price:14800, stock:true, sale:false, release:"new", image:"https://placehold.co/124x96?text=Wi-Fi", detail:"product-detail.html?id=NW-4401" },
+  { code:"BP-5020", name:"BluePeak Keyboard S", category:"Accessory", categoryJa:"周辺機器", maker:"BluePeak", price:9200, stock:false, sale:true, release:"old", image:"https://placehold.co/124x96?text=Keyboard", detail:"product-detail.html?id=BP-5020" }
+];
+
+function render(rows) {
+  const tbody = document.getElementById("resultBody");
+  tbody.innerHTML = "";
+
+  rows.forEach((p, index) => {
+    const tr = document.createElement("tr");
+    tr.setAttribute("data-product-code", p.code);
+    tr.innerHTML = `
+      <td><img class="product-img" src="${p.image}" alt="${p.name}の画像"></td>
+      <td class="product-code">${p.code}</td>
+      <td class="product-name">${p.name}</td>
+      <td>${p.categoryJa}</td>
+      <td>${p.maker}</td>
+      <td class="price">${p.price.toLocaleString()}円</td>
+      <td><span class="badge ${p.stock ? "" : "out"}">${p.stock ? "在庫あり" : "在庫なし"}</span></td>
+      <td><a class="detail-link" id="detail-${index + 1}" href="${p.detail}">詳細を見る</a></td>
+    `;
+    tbody.appendChild(tr);
+  });
+
+  document.getElementById("resultCount").textContent = rows.length + "件";
+}
+
+document.getElementById("searchButton").addEventListener("click", () => {
+  const name = document.getElementById("productName").value.trim().toLowerCase();
+  const category = document.getElementById("category").value;
+  const maker = document.getElementById("maker").value;
+  const minPrice = Number(document.getElementById("minPrice").value || 0);
+  const maxPrice = Number(document.getElementById("maxPrice").value || Number.MAX_SAFE_INTEGER);
+  const release = document.querySelector('input[name="release"]:checked').value;
+  const inStockOnly = document.getElementById("inStockOnly").checked;
+  const saleOnly = document.getElementById("saleOnly").checked;
+  const sort = document.querySelector('input[name="sort"]:checked').value;
+
+  let rows = products.filter(p =>
+    (!name || p.name.toLowerCase().includes(name) || p.code.toLowerCase().includes(name)) &&
+    (!category || p.category === category) &&
+    (!maker || p.maker === maker) &&
+    p.price >= minPrice &&
+    p.price <= maxPrice &&
+    (release === "all" || p.release === release) &&
+    (!inStockOnly || p.stock) &&
+    (!saleOnly || p.sale)
+  );
+
+  rows.sort((a, b) => sort === "price" ? a.price - b.price : a.code.localeCompare(b.code));
+
+  render(rows);
+  document.getElementById("searchMessage").textContent =
+    new Date().toLocaleTimeString("ja-JP") + " に検索しました。";
+});
+
+document.getElementById("clearButton").addEventListener("click", () => {
+  document.getElementById("productName").value = "";
+  document.getElementById("category").value = "";
+  document.getElementById("maker").value = "";
+  document.getElementById("minPrice").value = "";
+  document.getElementById("maxPrice").value = "";
+  document.querySelector('input[name="release"][value="all"]').checked = true;
+  document.querySelector('input[name="sort"][value="code"]').checked = true;
+  document.getElementById("inStockOnly").checked = false;
+  document.getElementById("saleOnly").checked = false;
+  render(products);
+  document.getElementById("searchMessage").textContent = "検索条件をクリアしました。";
+});
+
+render(products);
+</script>
+</body>
+</html>
