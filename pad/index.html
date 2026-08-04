@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>ログイン</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      padding: 30px;
+      background: #f4f7fb;
+    }
+    .login-card {
+      max-width: 400px;
+      margin: 0 auto;
+      padding: 24px;
+      background: #ffffff;
+      border: 1px solid #d9e2ec;
+      border-radius: 10px;
+      box-shadow: 0 4px 16px rgba(20, 50, 80, 0.08);
+    }
+    .login-card h1 {
+      font-size: 1.6rem;
+      margin-bottom: 20px;
+    }
+    .field {
+      margin-bottom: 18px;
+    }
+    .field label {
+      display: block;
+      font-size: 0.95rem;
+      margin-bottom: 6px;
+      color: #334e68;
+    }
+    .field input {
+      width: 100%;
+      padding: 10px 12px;
+      border: 1px solid #bcccdc;
+      border-radius: 6px;
+      font-size: 1rem;
+      box-sizing: border-box;
+    }
+    .login-button {
+      width: 100%;
+      padding: 12px;
+      border: none;
+      border-radius: 6px;
+      background: #2f80ed;
+      color: #ffffff;
+      font-size: 1rem;
+      cursor: pointer;
+    }
+    .login-button:hover {
+      background: #1d6fd1;
+    }
+  </style>
+</head>
+<body>
+  <div class="login-card">
+    <h1>PAD練習ページ ログイン</h1>
+    <form action="pad_product_search.html" method="get">
+      <div class="field">
+        <label for="login-id">ログインID</label>
+        <input type="text" id="login-id" name="login-id" placeholder="例: user@example.com">
+      </div>
+      <div class="field">
+        <label for="password">パスワード</label>
+        <input type="password" id="password" name="password" placeholder="パスワードを入力してください">
+      </div>
+      <button class="login-button" type="submit">ログイン</button>
+    </form>
+  </div>
+</body>
+</html>

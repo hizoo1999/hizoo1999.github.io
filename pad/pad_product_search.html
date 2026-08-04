@@ -175,11 +175,11 @@
 </head>
 <body>
 <header>
-  <h1>NovaWorks 製品詳細検索</h1>
+  <h1>PAD練習ページ 製品詳細検索</h1>
   <nav>
     <a href="#searchPanel" id="nav-search">製品検索</a>
     <a href="help.html" id="nav-help">ヘルプ</a>
-    <a href="login.html" id="nav-logout">ログアウト</a>
+    <a href="index.html" id="nav-logout">ログアウト</a>
   </nav>
 </header>
 
@@ -212,29 +212,10 @@
         <label for="maker">メーカー</label>
         <select id="maker" name="maker">
           <option value="">すべて</option>
-          <option value="NovaWorks">NovaWorks</option>
+          <option value="PAD練習ページ">PAD練習ページ</option>
           <option value="BluePeak">BluePeak</option>
           <option value="Orbitron">Orbitron</option>
         </select>
-      </div>
-
-      <div class="field">
-        <label for="minPrice">最低価格</label>
-        <input type="number" id="minPrice" name="minPrice" min="0" placeholder="0">
-      </div>
-
-      <div class="field">
-        <label for="maxPrice">最高価格</label>
-        <input type="number" id="maxPrice" name="maxPrice" min="0" placeholder="200000">
-      </div>
-
-      <div class="field">
-        <span class="group-title">発売時期</span>
-        <div class="inline-options" id="releasePeriod">
-          <label><input type="radio" name="release" value="all" checked> すべて</label>
-          <label><input type="radio" name="release" value="new"> 1年以内</label>
-          <label><input type="radio" name="release" value="old"> 1年以上前</label>
-        </div>
       </div>
 
       <div class="field">
@@ -277,6 +258,7 @@
           <th>メーカー</th>
           <th>価格</th>
           <th>在庫</th>
+          <th>セール</th>
           <th>詳細</th>
         </tr>
       </thead>
@@ -286,16 +268,16 @@
 </main>
 
 <footer>
-  NovaWorks Demo Site / PAD Training Page
+  PAD練習ページ Demo Site / PAD Training Page
 </footer>
 
 <script>
 const products = [
-  { code:"NW-1001", name:"NovaBook Air 13", category:"PC", categoryJa:"パソコン", maker:"NovaWorks", price:128000, stock:true, sale:false, release:"new", image:"https://placehold.co/124x96?text=PC+13", detail:"product-detail.html?id=NW-1001" },
-  { code:"NW-1002", name:"NovaBook Pro 15", category:"PC", categoryJa:"パソコン", maker:"NovaWorks", price:178000, stock:true, sale:true, release:"new", image:"https://placehold.co/124x96?text=PC+15", detail:"product-detail.html?id=NW-1002" },
+  { code:"NW-1001", name:"NovaBook Air 13", category:"PC", categoryJa:"パソコン", maker:"PAD練習ページ", price:128000, stock:true, sale:false, release:"new", image:"https://placehold.co/124x96?text=PC+13", detail:"product-detail.html?id=NW-1001" },
+  { code:"NW-1002", name:"NovaBook Pro 15", category:"PC", categoryJa:"パソコン", maker:"PAD練習ページ", price:178000, stock:true, sale:true, release:"new", image:"https://placehold.co/124x96?text=PC+15", detail:"product-detail.html?id=NW-1002" },
   { code:"BP-2030", name:"BlueTab Mini", category:"Tablet", categoryJa:"タブレット", maker:"BluePeak", price:56800, stock:false, sale:false, release:"old", image:"https://placehold.co/124x96?text=Tablet", detail:"product-detail.html?id=BP-2030" },
   { code:"OR-3100", name:"Orbit Mouse X", category:"Accessory", categoryJa:"周辺機器", maker:"Orbitron", price:6800, stock:true, sale:true, release:"old", image:"https://placehold.co/124x96?text=Mouse", detail:"product-detail.html?id=OR-3100" },
-  { code:"NW-4401", name:"Nova Wi-Fi Hub", category:"Network", categoryJa:"ネットワーク機器", maker:"NovaWorks", price:14800, stock:true, sale:false, release:"new", image:"https://placehold.co/124x96?text=Wi-Fi", detail:"product-detail.html?id=NW-4401" },
+  { code:"NW-4401", name:"Nova Wi-Fi Hub", category:"Network", categoryJa:"ネットワーク機器", maker:"PAD練習ページ", price:14800, stock:true, sale:false, release:"new", image:"https://placehold.co/124x96?text=Wi-Fi", detail:"product-detail.html?id=NW-4401" },
   { code:"BP-5020", name:"BluePeak Keyboard S", category:"Accessory", categoryJa:"周辺機器", maker:"BluePeak", price:9200, stock:false, sale:true, release:"old", image:"https://placehold.co/124x96?text=Keyboard", detail:"product-detail.html?id=BP-5020" }
 ];
 
@@ -314,6 +296,7 @@ function render(rows) {
       <td>${p.maker}</td>
       <td class="price">${p.price.toLocaleString()}円</td>
       <td><span class="badge ${p.stock ? "" : "out"}">${p.stock ? "在庫あり" : "在庫なし"}</span></td>
+      <td><span class="badge ${p.sale ? "" : "out"}">${p.sale ? "セール中" : "通常"}</span></td>
       <td><a class="detail-link" id="detail-${index + 1}" href="${p.detail}">詳細を見る</a></td>
     `;
     tbody.appendChild(tr);
@@ -326,9 +309,6 @@ document.getElementById("searchButton").addEventListener("click", () => {
   const name = document.getElementById("productName").value.trim().toLowerCase();
   const category = document.getElementById("category").value;
   const maker = document.getElementById("maker").value;
-  const minPrice = Number(document.getElementById("minPrice").value || 0);
-  const maxPrice = Number(document.getElementById("maxPrice").value || Number.MAX_SAFE_INTEGER);
-  const release = document.querySelector('input[name="release"]:checked').value;
   const inStockOnly = document.getElementById("inStockOnly").checked;
   const saleOnly = document.getElementById("saleOnly").checked;
   const sort = document.querySelector('input[name="sort"]:checked').value;
@@ -337,9 +317,6 @@ document.getElementById("searchButton").addEventListener("click", () => {
     (!name || p.name.toLowerCase().includes(name) || p.code.toLowerCase().includes(name)) &&
     (!category || p.category === category) &&
     (!maker || p.maker === maker) &&
-    p.price >= minPrice &&
-    p.price <= maxPrice &&
-    (release === "all" || p.release === release) &&
     (!inStockOnly || p.stock) &&
     (!saleOnly || p.sale)
   );
@@ -355,9 +332,6 @@ document.getElementById("clearButton").addEventListener("click", () => {
   document.getElementById("productName").value = "";
   document.getElementById("category").value = "";
   document.getElementById("maker").value = "";
-  document.getElementById("minPrice").value = "";
-  document.getElementById("maxPrice").value = "";
-  document.querySelector('input[name="release"][value="all"]').checked = true;
   document.querySelector('input[name="sort"][value="code"]').checked = true;
   document.getElementById("inStockOnly").checked = false;
   document.getElementById("saleOnly").checked = false;
