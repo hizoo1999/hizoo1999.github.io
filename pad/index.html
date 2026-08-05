@@ -57,7 +57,7 @@
 <body>
   <div class="login-card">
     <h1>PAD練習ページ ログイン</h1>
-    <form action="pad_product_search.html" method="get">
+    <form id="login-form">
       <div class="field">
         <label for="login-id">ログインID</label>
         <input type="text" id="login-id" name="login-id" placeholder="例: user@example.com">
@@ -69,5 +69,11 @@
       <button class="login-button" type="submit">ログイン</button>
     </form>
   </div>
+  <script>
+    document.getElementById('login-form').addEventListener('submit', function(event) {
+      event.preventDefault();
+      window.location.href = 'pad_product_search.html';
+    });
+  </script>
 </body>
 </html>
